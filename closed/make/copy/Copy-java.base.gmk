@@ -35,6 +35,12 @@ TARGETS += \
 	$(INCLUDE_TARGET_DIR)/ibmjvmti.h \
 	#
 
+
+$(TOPDIR)/openj9/runtime/include/jvmti.h :
+	@$(ECHO) "The version we are using is JDK$(VERSION_FEATURE)"
+	m4 -D VA_SPEC_VERSION=$(VERSION_FEATURE) $(TOPDIR)/openj9/runtime/include/jvmti.h.m4 > $(TOPDIR)/openj9/runtime/include/jvmti.h
+
+
 $(INCLUDE_TARGET_DIR)/jvmti.h : $(TOPDIR)/openj9/runtime/include/jvmti.h
 	$(call install-file)
 

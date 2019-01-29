@@ -20,6 +20,11 @@
 
 CLEAN_DIRS += vm
 
+
+
+#Add dependency in order to delete generated jvmti header file
+clean: clean_jvmti
+
 .PHONY : \
 	j9vm-build \
 	java.base-libs \
@@ -37,6 +42,11 @@ PHASE_MAKEDIRS := $(TOPDIR)/closed/make/closed_make $(PHASE_MAKEDIRS)
 
 OPENJ9_MAKE := $(MAKE) -f $(TOPDIR)/closed/OpenJ9.gmk SPEC=$(SPEC) VERSION_MAJOR=$(VERSION_FEATURE) OPENJDK_VERSION_NUMBER_FOUR_POSITIONS=$(VERSION_NUMBER_FOUR_POSITIONS)
 OPENSSL_MAKE := $(MAKE) -f $(TOPDIR)/closed/openssl.gmk SPEC=$(SPEC)
+
+
+clean_jvmti:
+        @$(ECHO) !!Cleaning jvmti header!! ----- test only
+        $(RM) $(TOPDIR)/openj9/runtime/include/jvmti.h
 
 openssl-build : buildtools-langtools
 	+$(OPENSSL_MAKE)
